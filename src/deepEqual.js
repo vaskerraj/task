@@ -11,10 +11,26 @@ const checkAllowedParams = (x, y) => {
   return true;
 }
 
+const checkEmptyObj = (obj) => {
+  return obj === null
+    ? true
+    : Object.keys(obj).length === 0
+      ? true
+      : false;
+
+};
 
 const deepEqual = (a, b) => {
   if (checkAllowedParams(a, b)) {
-    return true;
+    if (typeof (a) === 'object' || typeof (b) === 'object') {
+      if (!checkEmptyObj(a) && !checkEmptyObj(b)) {
+        
+      }else{
+        return false;
+      }
+    } else {
+      return a === b ? true : false;
+    }
   }
   return false;
 }
