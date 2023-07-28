@@ -17,7 +17,10 @@ const checkEmptyObj = (obj) => {
 const removeUndefinedField = (obj) => {
   return JSON.parse(JSON.stringify(obj));
 }
-
+const unwantedTypeOfValue = (obj) => {
+  const allowObjType = ['string', 'number', 'boolean'];
+  return Object.entries(obj).some(([key, value]) => allowObjType.includes(typeof value) === false);
+}
 const deepEqual = (a, b) => {
   if (checkAllowedParams(a, b)) {
     if (typeof (a) === 'object' && typeof (b) === 'object') {
@@ -29,7 +32,13 @@ const deepEqual = (a, b) => {
         // remove field that have value as undefined
         const aWithoutUndefined = removeUndefinedField(a);
         const bWithoutUndefined = removeUndefinedField(b);
-        return Object.entries(aWithoutUndefined).sort().toString() === Object.entries(bWithoutUndefined).sort().toString() ? true : false;
+
+        // check value of field. value should be string/number/boolean
+        if(unwantedTypeOfValue(aWithoutUndefined) && unwantedTypeOfValue(bWithoutUndefined)){
+          return false;
+        } else {
+          return Object.entries(aWithoutUndefined).sort().toString() === Object.entries(bWithoutUndefined).sort().toString() ? true : false;
+        }
       }
       return false;
     } else {
