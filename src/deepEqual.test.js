@@ -18,6 +18,10 @@ describe("deepEqual", () => {
     expect(deepEqual({ name: "Bob" }, { name: "Bob" })).to.equal(true);
   });
 
+  it("should return true even two value equal objects with order of fields are not same", () => {
+    expect(deepEqual({name: 'Bob', email: 'bob@example.com'}, {email: 'bob@example.com', name: 'Bob'})).to.equal(true);
+  });
+
   it("should return true given object which filed have value as undfined", () => {
     expect(deepEqual({name: 'Bob', email: undefined}, {name: 'Bob'})).to.equal(true);
   });
@@ -25,5 +29,4 @@ describe("deepEqual", () => {
   it("should return false given two value not equal objects", () => {
     expect(deepEqual({name: 'Bob', email: 'bob@example.com'}, {name: 'Bob'})).to.equal(false);
   });
-
 });
