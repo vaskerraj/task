@@ -17,6 +17,10 @@ const checkEmptyObj = (obj) => {
 const deepEqual = (a, b) => {
   if (checkAllowedParams(a, b)) {
     if (typeof (a) === 'object' || typeof (b) === 'object') {
+      
+      //check null because type of null is also object
+      if(a === null && b === null) return true;
+
       if (!checkEmptyObj(a) && !checkEmptyObj(b)) {
 
       }
