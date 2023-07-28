@@ -22,6 +22,10 @@ describe("deepEqual", () => {
     expect(deepEqual({name: 'Bob', email: 'bob@example.com'}, {email: 'bob@example.com', name: 'Bob'})).to.equal(true);
   });
 
+  it("should return false even when value is not string/number/boolean", () => {
+    expect(deepEqual({name: ['Bob', 'Jack'] }, {name: 'Bob'})).to.equal(false);
+  });
+
   it("should return true given object which filed have value as undfined", () => {
     expect(deepEqual({name: 'Bob', email: undefined}, {name: 'Bob'})).to.equal(true);
   });
