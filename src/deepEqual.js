@@ -14,15 +14,22 @@ const checkEmptyObj = (obj) => {
 
 };
 
+const removeUndefinedField = (obj) => {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 const deepEqual = (a, b) => {
   if (checkAllowedParams(a, b)) {
-    if (typeof (a) === 'object' || typeof (b) === 'object') {
-      
-      //check null because type of null is also object
-      if(a === null && b === null) return true;
+    if (typeof (a) === 'object' && typeof (b) === 'object') {
+
+      //check null because type of null is also `object`
+      if (a === null && b === null) return true;
 
       if (!checkEmptyObj(a) && !checkEmptyObj(b)) {
-
+        // remove field that have value as undefined
+        const aWithoutUndefined = removeUndefinedField(a);
+        const bWithoutUndefined = removeUndefinedField(b);
+        return Object.entries(aWithoutUndefined).sort().toString() === Object.entries(bWithoutUndefined).sort().toString() ? true : false;
       }
       return false;
     } else {
